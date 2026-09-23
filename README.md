@@ -56,18 +56,13 @@ Full per-class metrics, error analysis, and the confidence/coverage trade-off ar
 
 1. ![Class distribution](figures/eda_class_distribution.png) — bar chart of class counts (shows the ~85% `none` imbalance
    that motivates using macro-F1).
-2. ![Example Maps](figures/eda_example_maps.png) — one example wafer map per class, so a reader immediately understands
-   what each pattern looks like without needing the writeup above.
+2. ![Example Maps](figures/eda_example_maps.png) — one example wafer map per class
 3. ![Training Curves (All Candidates)](figures/training_curves_all_candidates.png) — val accuracy/loss curves for all four architectures,
    showing the early-epoch instability discussed in the conclusion.
 4. ![Confusion Matrix - Deep CNN](figures/confusion_matrix_deep_cnn_final_test.png) — final test-set confusion matrix for the winning model.
 5. ![Error Analysis - Top Confusion](figures/error_analysis_top_confusion.png) — sample of actual misclassified wafer maps for the most
-   common confusion pair (this is the most visually convincing figure — it lets a reviewer see
-   *why* the model struggles, not just that it does).
+   common confusion pair 
 6. ![Confidence Threshold Tradeoff](figures/confidence_threshold_tradeoff.png) — coverage vs. macro-F1 trade-off curve.
-
-Suggested placement: 1–2 near the top (right after Results), 3–4 in a "Model Selection" section,
-5 in an "Error Analysis" section, 6 in a "Production Considerations" section.
 
 ## Demo
 
@@ -90,7 +85,3 @@ streamlit run app.py
 - Leakage check is exact-duplicate detection only, not a full wafer/lot-ID audit (raw dataset
   doesn't expose lot IDs in the version used here).
 
-## Next steps
-
-See Section 14 of the notebook for the prioritized list (LR warmup, milder class weighting,
-augmentation, pretrained backbone, per-class confidence thresholds).
