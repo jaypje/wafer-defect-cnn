@@ -1,14 +1,14 @@
 # Wafer Defect Pattern Classification (CNN on WM-811K)
 
 A CNN that classifies semiconductor wafer maps into 9 failure-pattern classes (e.g. `Edge-Ring`,
-`Center`, `Scratch`, `Loc`, `none`), with an emphasis on doing the ML *rigorously* — fair
-architecture comparison, leakage checking, confidence-based routing — and connecting the output
+`Center`, `Scratch`, `Loc`, `none`), with an emphasis on doing the ML *rigorously*, fair
+architecture comparison, leakage checking, confidence-based routing, and connecting the output
 to what a fab would actually do with it.
 
 ## Why this matters
 
 After wafer test, each die on a wafer is marked pass/fail. The *spatial pattern* of failures across
-a wafer is a signature of what went wrong upstream — a ring of failures at the edge usually means
+a wafer is a signature of what went wrong upstream, a ring of failures at the edge usually means
 an edge-handling issue, a cluster at the center usually means non-uniform deposition/etch, a thin
 line means a physical scratch during handling, and so on. Automatically classifying this pattern
 means failures can be routed to the right engineering team faster than manual inspection.
