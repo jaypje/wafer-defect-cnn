@@ -27,7 +27,7 @@ ROOT_CAUSE = {
     "none": "No actionable pattern -> no action; normal yield loss",
 }
 
-CONFIDENCE_THRESHOLD = 0.90  # matches the operating point chosen in the notebook
+CONFIDENCE_THRESHOLD = 0.90  # operating point highlighted in the notebook's threshold sweep (run on the test set, so descriptive only)
 
 
 @st.cache_resource
@@ -35,7 +35,7 @@ def load_model():
     return tf.keras.models.load_model("wafer_defect_cnn.keras")
 
 
-@st.cache_data
+@st.cache_resource  # cache_resource avoids re-copying the ~425 MB test array on every slider move
 def load_sample_wafers():
     """Optional: lets the user pick a real test-set example instead of uploading a file."""
     try:
@@ -91,6 +91,10 @@ else:
     uploaded = st.file_uploader("Upload a preprocessed 64x64 wafer map (.npy)", type=["npy"])
     if uploaded is not None:
         wafer_map = np.load(uploaded)
+        if np.squeeze(wafer_map).shape != (64, 64):
+            st.error(f"Expected a 64x64 wafer map, got shape {wafer_map.shape}. "
+                     "Upload a preprocessed map saved from the notebook's arrays (e.g. X_test[i]).")
+            wafer_map = None
 
 if wafer_map is not None:
     col1, col2 = st.columns(2)
@@ -121,5 +125,5 @@ else:
 st.divider()
 st.caption(
     "This is a portfolio/demo app, not a production tool. See the notebook for full methodology, "
-    "error analysis, and the confidence-threshold study behind the 0.90 operating point used here."
+    "error analysis, and the confidence-threshold sweep (run on the test set) behind the 0.90 operating point used here."
 )
